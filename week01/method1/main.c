@@ -61,5 +61,5 @@ int main()
     // 带有负数的数组
     int nums4[3] = {-1, 2, -1};
     int res4 = singleNumber(nums4, 3);
-    printf("single number: %d\n", res4);
+    printf("single number is %d\n", res4);
 }
