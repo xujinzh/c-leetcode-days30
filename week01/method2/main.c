@@ -1,10 +1,12 @@
 #include <stdio.h>
 
 /**
- * 通过对每一个元素与整个数组的每个元素从头到尾计算有几个相等的。
- * 如果发现某个元素与整个数组遍历后发现是单数个与它相等，那么说明它就是单数。
+ * 利用异或运算的两个规则：
+ * 1. 任何整数和0进行异或运算XOR，结果是该数本身：
+ *     0 ^ x = x,
+ * 2. 异或运算具有交换律：
+ *     x ^ y ^ x = x ^ (y ^ x) = x ^ (x ^ y) = (x ^ x) ^ y = 0 ^ y = y
  *
- * 此方法，需要进行 n^2 级别的遍历，速度慢
  */
 
 /**
@@ -15,27 +17,21 @@
  */
 int singleNumber(int *nums, int numsSize)
 {
-    // 对每一个元素进行遍历
-    for (int i = 0; i < numsSize; i++)
+    if (numsSize < 0 || numsSize % 2 == 0)
     {
-        // 记录当前元素在数组中出现的次数
-        int count = 0;
-        // 再次遍历整个数组，找与当前元素相等的元素个数
-        for (int j = 0; j < numsSize; j++)
-        {
-            if (nums[j] == nums[i])
-            {
-                count++;
-            }
-        }
-        // 如果当前元素与整个数组比较发现，只有1个与它相等，说明当前元素就是 single number
-        if (count == 1)
-        {
-            return nums[i];
-        }
+        return 0;
     }
-    // 程序必须要返回一个整数
-    return 0;
+    // if (numsSize == 1)
+    // {
+    //     return nums[0];
+    // }
+
+    int single = nums[0];
+    for (int i = 1; i < numsSize; i++)
+    {
+        single ^= nums[i];
+    }
+    return single;
 }
 
 int main()
@@ -58,8 +54,13 @@ int main()
     int res3 = singleNumber(nums3, 7);
     printf("single number is %d\n", res3);
 
-    // 带有负数的数组
+    // 带有负数的数组，单数是2
     int nums4[3] = {-1, 2, -1};
     int res4 = singleNumber(nums4, 3);
-    printf("single number: %d\n", res4);
+    printf("single number is %d\n", res4);
+
+    // 单个元素
+    int nums5[1] = {1};
+    int res5 = singleNumber(nums5, 1);
+    printf("single number is %d\n", res5);
 }
