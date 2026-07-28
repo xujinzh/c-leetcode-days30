@@ -20,11 +20,11 @@ void moveZeros(int *nums, int numsSize)
         return;
     }
     // 标识是否要进行循环判断
-    bool flag = true;
-    while (flag)
+    bool needExchange = true;
+    while (needExchange)
     {
         // 默认认为是已经排序好了
-        flag = false;
+        needExchange = false;
         // 检查当前数组中是否已经达到了要求
         for (int i = 0; i + 1 < numsSize; i++)
         {
@@ -33,11 +33,10 @@ void moveZeros(int *nums, int numsSize)
             // 继续下一次循环检查是否排序好
             if (nums[i] == 0 && nums[i + 1] != 0)
             {
-                int temp = nums[i];
                 nums[i] = nums[i + 1];
-                nums[i + 1] = temp;
-                flag = true;
-                break;
+                nums[i + 1] = 0;
+                needExchange = true;
+                // break;
             }
         }
     }
